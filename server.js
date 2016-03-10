@@ -1,8 +1,13 @@
 var http = require('http');
+var express = require('express');
+var app = express();
 
-http.createServer(function (req, res) {
-    
-    res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.end('Hello, world!');
-    
-}).listen(process.env.PORT || 8080);
+// Specify the port
+var port = process.env.port || 8080;
+
+// Identify root folderapp
+app.use('/',express.static(__dirname + '/public'));
+
+// MAke it go
+app.listen(port);
+console.log('Listening on port: ',port);
