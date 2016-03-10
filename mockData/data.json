@@ -1,0 +1,42 @@
+
+/*Projects*/
+
+{
+    "ProjectName":"Lorem",
+    "Client":"Ipsum"
+}
+
+
+/*Users*/
+
+{
+    "UserId":"001",
+    "Title":"Eric Weintraub",
+    "Email":"eric.weintraub@highpointsolutions.com"
+}
+
+/*Issues*/
+
+{
+    "_ID":"802e9341-73a3-4141-afd4-327ddd243232",
+    "ProjectName":"Lorem",
+    "IssueTitle": "Proident aute culpa eu ex culpa amet veniam labore excepteur",
+    "IssueDescription": "Adipisicing nulla aute consectetur anim ullamco pariatur id duis do. Et elit occaecat nulla aliqua laborum culpa laborum laboris laboris labore aliquip ullamco nisi.",
+    "CurrentAssignedToId":"001",
+    "CurrentAssignedToTitle":"Eric Weintraub",
+    "DateReported":"03/01/2016",
+    "LastUpdated":"03/07/2016",
+    "History":"[
+            {
+                'User':'Eric Weintraub',
+                'Date':'03/01/2016',
+                'Comment':'Issue Reported'
+            },
+            {
+                'User':'Eric Weintraub',
+                'Date':'03/02/2016',
+                'Comment':'Exercitation mollit id eu laboris est in ut dolor deserunt id.'
+            }
+        ]",
+
+}
