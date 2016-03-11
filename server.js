@@ -41,18 +41,37 @@ router.route('/projects')
             });
         });
     });
-// GET ALL ISSUES
-router.route('/issues')
+// GET ALL ISSUES (LIMITED DATA)
+router.route('/issues/limited')
     .get(function(req,res){
         var d = [];
         mongodb.MongoClient.connect(uri, function(err, db) {
             var projects = db.collection('issues');
-            projects.find ().toArray(function(err,docs){
+            projects.find ({},{
+                    '_id':true,
+                    'issueTitle':true,
+                    'issueDescription':true,
+                    'currentAssignedTo.title':true,
+                    'status':true
+                }).toArray(function(err,docs){
                 if(err) throw err;
                 res.json(docs);
             });
         });
     });
+
+    // GET ALL ISSUES (ALL DATA)
+    router.route('/issues')
+        .get(function(req,res){
+            var d = [];
+            mongodb.MongoClient.connect(uri, function(err, db) {
+                var projects = db.collection('issues');
+                projects.find ().toArray(function(err,docs){
+                    if(err) throw err;
+                    res.json(docs);
+                });
+            });
+        });
 
 // SEEDING
 router.route('/seeding')
