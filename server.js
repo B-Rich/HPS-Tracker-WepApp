@@ -54,7 +54,7 @@ router.route('/issues/limited')
                     'currentAssignedTo.title':true,
                     'status':true,
                     'type':true,
-                    'project:true'
+                    'project':true
                 }).toArray(function(err,docs){
                 if(err) throw err;
                 res.json(docs);
