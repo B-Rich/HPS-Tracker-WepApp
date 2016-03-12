@@ -63,15 +63,25 @@ router.route('/issues/limited')
     });
 
     // GET ALL ISSUES (ALL DATA)
-    router.route('/issues')
+    router.route('/issues/')
         .get(function(req,res){
             var d = [];
             mongodb.MongoClient.connect(uri, function(err, db) {
-                var projects = db.collection('issues');
-                projects.find ().toArray(function(err,docs){
+                var issues = db.collection('issues');
+                var searchObj = {};
+                if(req.query.project){
+                    searchObj["project"] = req.query.project;
+                }
+                if(req.query.status){
+                    searchObj["status"] = req.query.status;
+                }
+
+                console.log(searchObj);
+                issues.find(searchObj).toArray(function(err,docs){
                     if(err) throw err;
                     res.json(docs);
                 });
+
             });
         });
 
