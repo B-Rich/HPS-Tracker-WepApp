@@ -42,12 +42,19 @@ router.route('/projects')
         });
     });
 // GET ALL ISSUES (LIMITED DATA)
-router.route('/issues/limited')
+router.route('/issues/limited/')
     .get(function(req,res){
         var d = [];
         mongodb.MongoClient.connect(uri, function(err, db) {
-            var projects = db.collection('issues');
-            projects.find ({},{
+            var issues = db.collection('issues');
+            var searchObj = {};
+            if(req.query.project){
+                searchObj["project"] = req.query.project;
+            }
+            if(req.query.status){
+                searchObj["status"] = req.query.status;
+            }
+            issues.find (searchObj,{
                     '_id':true,
                     'issueTitle':true,
                     'issueDescription':true,
@@ -75,8 +82,9 @@ router.route('/issues/limited')
                 if(req.query.status){
                     searchObj["status"] = req.query.status;
                 }
-
-                console.log(searchObj);
+                if(req.query.id){
+                    searchObj["_id"] = req.query.id;
+                }
                 issues.find(searchObj).toArray(function(err,docs){
                     if(err) throw err;
                     res.json(docs);
