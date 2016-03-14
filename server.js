@@ -58,7 +58,7 @@ router.route('/issues/limited/')
                     '_id':true,
                     'issueTitle':true,
                     'issueDescription':true,
-                    'currentAssignedTo.title':true,
+                    'currentAssignedTitle':true,
                     'status':true,
                     'type':true,
                     'project':true
