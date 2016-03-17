@@ -123,10 +123,10 @@ router.route('/seeding')
                 };
                 projects.insert(obj,function(err,result){
                     if(err){
-                        console.log(err);
+                        res.json(err);
                          db.close();
                     } else {
-                        console.log(result);
+                        res.json(result);
                          db.close();
                     }
                 });
@@ -138,28 +138,14 @@ router.route('/seeding')
         .post(function(req, res){
             mongodb.MongoClient.connect(uri, function(err, db) {
                 if(err) throw err;
-                var projects = db.collection('projects');
-                var obj = {
-                    project:req.body.project,
-                    issueTitle:req.body.issueTitle,
-                    issueDescription:req.body.description,
-                    currentAssignedTo:{
-                            id:req.body.assignedToId,
-                            title:req.body.assignedToTitle
-                    },
-                    dateReported:req.body.dateReported,
-                    reportedBy:req.body.reportedBy,
-                    lastUpdated:new Date().toISOString(),
-                    status:"Open",
-                    priority:req.body.priority,
-                    type:req.body.type
-                };
-                projects.insert(obj,function(err,result){
+                var issues = db.collection('issues');
+                var obj = req.body.d;
+                issues.insert(obj,function(err,result){
                     if(err){
-                        console.log(err);
+                        res.json(err);
                          db.close();
                     } else {
-                        console.log(result);
+                        res.json(result);
                          db.close();
                     }
                 });
