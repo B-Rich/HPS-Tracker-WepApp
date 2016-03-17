@@ -151,7 +151,28 @@ router.route('/seeding')
                 });
             });
         });
-
+// ADD A COMMENT
+    router.route('/addComment')
+        .put(function(req, res){
+            console.log(req.body);
+            var updateComments = function(db,callback) {
+              db.collection('issues').updateOne(
+                {_id: req.body.id},
+                {
+                  $set: {comments: req.body.comments}
+                }, function(err, results) {
+                  console.log(results);
+                  res.json(results);
+                  callback();
+                });
+            };
+            mongodb.MongoClient.connect(uri, function(err,db){
+              assert.equal(null,err);
+              updateComments(db,function(){
+                db.close();
+              });
+            })
+        });
 
 // ROUTES -------------------------------
 app.use('/api', router);
