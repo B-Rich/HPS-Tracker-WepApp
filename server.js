@@ -154,29 +154,28 @@ router.route('/seeding')
 // ADD A COMMENT
     router.route('/addComment')
         .put(function(req, res){
-            console.log(req.body);
-            var updateComments = function(db,callback) {
-              db.collection('issues').updateOne(
+            mongodb.MongoClient.connect(uri, function(err, db) {
+                if(err) throw err;
+                var issues = db.collection('issues');
+                issues.updateOne(
                 {_id: req.body.id},
                 {
                   $set: {comments: req.body.comments}
-                }, function(err, results) {
-                  console.log(results);
-                  res.json(results);
-                  callback();
+                },function(err,result){
+                    if(err){
+                        res.json(err);
+                         db.close();
+                    } else {
+                        res.json(result);
+                         db.close();
+                    }
                 });
-            };
-            mongodb.MongoClient.connect(uri, function(err,db){
-              assert.equal(null,err);
-              updateComments(db,function(){
-                db.close();
-              });
-            })
+            });
         });
 
 // ROUTES -------------------------------
 app.use('/api', router);
-app.use('/',express.static(__dirname + '/public/'));
+app.use('/',express.static(__dirname));
 
 
 app.listen(port);
